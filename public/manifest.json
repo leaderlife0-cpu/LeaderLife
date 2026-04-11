@@ -1,7 +1,7 @@
 {
   "name": "LeaderLife",
   "short_name": "LeaderLife",
-  "description": "LeaderLife – Track your goals and lead your life",
+  "description": "Découvrez les meilleurs lieux du monde",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
