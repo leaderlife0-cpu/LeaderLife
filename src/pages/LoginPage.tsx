@@ -43,7 +43,7 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
               <MapPin size={24} className="text-blue-400" />
             </div>
-            <span className="font-bold text-white text-2xl" style={{ fontFamily: '"Playfair Display", serif' }}>LeaderLife</span>
+            <span className="font-bold text-white text-2xl" style={{ fontFamily: '"Playfair Display", serif' }}>Exploraa</span>
           </div>
           <h2 className="text-white text-3xl font-bold mb-3" style={{ fontFamily: '"Playfair Display", serif' }}>
             Explorez le monde
@@ -63,7 +63,7 @@ export default function LoginPage() {
         >
           <div className="lg:hidden flex items-center gap-2 mb-8 justify-center">
             <MapPin size={20} className="text-blue-400" />
-            <span className="font-bold text-white text-xl" style={{ fontFamily: '"Playfair Display", serif' }}>LeaderLife</span>
+            <span className="font-bold text-white text-xl" style={{ fontFamily: '"Playfair Display", serif' }}>Exploraa</span>
           </div>
 
           <h1 className="text-2xl font-bold text-white mb-1">Bon retour !</h1>

@@ -15,7 +15,7 @@ const VALEURS = [
   {
     icon: Heart,
     title: 'Passion du voyage',
-    description: 'Nous croyons que chaque voyage transforme. LeaderLife est né pour rendre accessible les meilleurs endroits du monde à tous.',
+    description: 'Nous croyons que chaque voyage transforme. Exploraa est né pour rendre accessible les meilleurs endroits du monde à tous.',
     color: '#EF4444',
   },
   {
@@ -33,7 +33,7 @@ const VALEURS = [
   {
     icon: Globe,
     title: 'Sans frontières',
-    description: 'Restaurants à Abidjan, hôtels à Dubai, plages à Bali — LeaderLife couvre le monde entier sans exception.',
+    description: 'Restaurants à Abidjan, hôtels à Dubai, plages à Bali — Exploraa couvre le monde entier sans exception.',
     color: '#FF6D00',
   },
 ];
@@ -42,17 +42,17 @@ const TEAM = [
   {
     name: 'Leader',
     role: 'Fondateur & CEO',
-    bio: 'Visionnaire et explorateur passionné, Leader a créé LeaderLife pour partager sa passion des découvertes avec le monde entier.',
+    bio: 'Visionnaire et explorateur passionné, Leader a créé Exploraa pour partager sa passion des découvertes avec le monde entier.',
     avatar: '👑',
     color: '#2196F3',
   },
 ];
 
 const TIMELINE = [
-  { year: '2023', title: 'Idée initiale', desc: 'Naissance du concept LeaderLife lors d\'un voyage à Abidjan.' },
+  { year: '2023', title: 'Idée initiale', desc: 'Naissance du concept Exploraa lors d\'un voyage à Abidjan.' },
   { year: '2024', title: 'Développement', desc: 'Lancement de la plateforme avec les premières villes africaines.' },
   { year: '2025', title: 'Expansion', desc: 'Ajout de l\'IA, de la recherche vocale, et couverture de 195+ pays.' },
-  { year: '2026', title: 'Aujourd\'hui', desc: 'LeaderLife devient la référence pour les explorateurs du monde.' },
+  { year: '2026', title: 'Aujourd\'hui', desc: 'Exploraa devient la référence pour les explorateurs du monde.' },
 ];
 
 export default function AboutPage() {
@@ -91,7 +91,7 @@ export default function AboutPage() {
           >
             À propos de{' '}
             <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              LeaderLife
+              Exploraa
             </span>
           </motion.h1>
 
@@ -144,7 +144,7 @@ export default function AboutPage() {
           </h2>
           <p className="text-white/70 text-lg leading-relaxed max-w-2xl mx-auto">
             Rendre la découverte du monde accessible à tous. Que vous soyez à Abidjan, Paris, Dubai
-            ou New York, LeaderLife vous guide vers les expériences les plus authentiques et les plus
+            ou New York, Exploraa vous guide vers les expériences les plus authentiques et les plus
             mémorables — grâce à l'intelligence artificielle et à une communauté de passionnés.
           </p>
         </motion.div>
@@ -248,7 +248,7 @@ export default function AboutPage() {
           >
             L'équipe
           </h2>
-          <p className="text-white/50">Les personnes derrière LeaderLife.</p>
+          <p className="text-white/50">Les personnes derrière Exploraa.</p>
         </motion.div>
 
         <div className="flex justify-center">
@@ -327,7 +327,7 @@ export default function AboutPage() {
             Prêt à explorer avec nous ?
           </h2>
           <p className="text-white/60 mb-6">
-            Rejoignez 250 000 explorateurs qui découvrent le monde avec LeaderLife.
+            Rejoignez 250 000 explorateurs qui découvrent le monde avec Exploraa.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Button

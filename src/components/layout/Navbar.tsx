@@ -67,7 +67,7 @@ export function Navbar() {
             <MapPin size={16} className="text-blue-400" />
           </div>
           <span className="font-bold text-white text-lg" style={{ fontFamily: '"Playfair Display", serif' }}>
-            LeaderLife
+            Exploraa
           </span>
         </Link>
 

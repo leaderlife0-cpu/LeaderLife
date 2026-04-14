@@ -40,7 +40,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LeaderLife dark theme — always dark */
+/* Exploraa dark theme — always dark */
 :root {
   --background: #0A0A0F;
   --foreground: #FFFFFF;

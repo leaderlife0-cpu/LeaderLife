@@ -64,7 +64,7 @@ export default function AssistantPage() {
               <Sparkles size={22} className="text-blue-400" />
             </div>
             <div>
-              <h2 className="text-white font-bold text-sm">LeaderLife Guide</h2>
+              <h2 className="text-white font-bold text-sm">Exploraa Guide</h2>
               <p className="text-white/40 text-xs">Assistant voyage IA</p>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function AssistantPage() {
               <Compass size={16} className="text-blue-400" />
             </div>
             <div className="flex-1">
-              <span className="font-semibold text-white text-sm">LeaderLife Guide</span>
+              <span className="font-semibold text-white text-sm">Exploraa Guide</span>
               <Badge className="ml-2 bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs px-1.5 py-0">IA</Badge>
             </div>
             <button onClick={clearHistory} className="text-white/40 hover:text-white">
@@ -254,7 +254,7 @@ export default function AssistantPage() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend()}
-                placeholder={isLoading ? 'LeaderLife Guide réfléchit...' : 'Demandez-moi n\'importe quoi sur les voyages...'}
+                placeholder={isLoading ? 'Exploraa Guide réfléchit...' : 'Demandez-moi n\'importe quoi sur les voyages...'}
                 disabled={isLoading}
                 className="flex-1 bg-transparent py-4 text-sm text-white placeholder:text-white/30 focus:outline-none"
               />

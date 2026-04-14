@@ -13,11 +13,11 @@ export function Footer() {
                 <MapPin size={16} className="text-blue-400" />
               </div>
               <span className="font-bold text-white text-lg" style={{ fontFamily: '"Playfair Display", serif' }}>
-                LeaderLife
+                Exploraa
               </span>
             </div>
             <p className="text-white/50 text-sm max-w-xs">
-              Découvrez les meilleurs spots du monde entier. Restaurants, hôtels, plages, nightlife — tout en un seul endroit.
+              Découvrez le monde, connectez-vous partout. Restaurants, hôtels, plages, nightlife — tout en un seul endroit.
             </p>
             <div className="flex gap-3 mt-4">
               {[Globe, MessageCircle, Rss, Play].map((Icon, i) => (
@@ -41,7 +41,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold text-sm mb-3">LeaderLife</h4>
+            <h4 className="text-white font-semibold text-sm mb-3">Exploraa</h4>
             <div className="flex flex-col gap-2">
               <Link to="/a-propos" className="text-white/50 hover:text-white text-sm transition-colors">À propos</Link>
               <Link to="/assistant" className="text-white/50 hover:text-white text-sm transition-colors">Assistant IA</Link>
@@ -54,7 +54,7 @@ export function Footer() {
 
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-white/30 text-xs">
-            © 2026 LeaderLife — Propulsé par Leader
+            © 2026 Exploraa — Découvrez le monde, connectez-vous partout
           </p>
           <p className="text-white/30 text-xs">
             Fait avec ❤️ pour les explorateurs du monde

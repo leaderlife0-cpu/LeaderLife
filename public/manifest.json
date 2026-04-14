@@ -1,7 +1,7 @@
 {
-  "name": "LeaderLife",
-  "short_name": "LeaderLife",
-  "description": "Découvrez les meilleurs lieux du monde",
+  "name": "Exploraa",
+  "short_name": "Exploraa",
+  "description": "Découvrez le monde, connectez-vous partout",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

@@ -1,14 +1,14 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { ChatMessage } from '@/types';
 
-const STORAGE_KEY = 'leaderlife_chat_history';
+const STORAGE_KEY = 'exploraa_chat_history';
 const MAX_MESSAGES = 50;
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 const WELCOME_MESSAGE: ChatMessage = {
   role: 'assistant',
-  content: "Salut ! 👋 Je suis ton guide LeaderLife. Dis-moi où tu veux aller ou ce que tu cherches, et je te trouve les meilleurs spots ! Tu peux aussi me parler en appuyant sur le micro 🎤",
+  content: "Salut ! 👋 Je suis ton guide Exploraa. Dis-moi où tu veux aller ou ce que tu cherches, et je te trouve les meilleurs spots ! Tu peux aussi me parler en appuyant sur le micro 🎤",
   timestamp: new Date().toISOString(),
 };
 

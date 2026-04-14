@@ -96,7 +96,7 @@ export function ChatAssistant() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-white text-sm">LeaderLife Guide</span>
+                  <span className="font-semibold text-white text-sm">Exploraa Guide</span>
                   <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs px-1.5 py-0">IA</Badge>
                 </div>
                 <p className="text-white/40 text-xs">En ligne</p>
@@ -211,7 +211,7 @@ export function ChatAssistant() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend()}
-                  placeholder={isLoading ? 'LeaderLife Guide réfléchit...' : 'Demandez-moi n\'importe quoi...'}
+                  placeholder={isLoading ? 'Exploraa Guide réfléchit...' : 'Demandez-moi n\'importe quoi...'}
                   disabled={isLoading}
                   className="flex-1 bg-transparent py-3 text-sm text-white placeholder:text-white/30 focus:outline-none"
                 />
