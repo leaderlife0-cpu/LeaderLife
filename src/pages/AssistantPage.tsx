@@ -1,12 +1,13 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Trash2, Compass, ArrowLeft, Sparkles } from 'lucide-react';
+import { Send, Trash2, Sparkles, ArrowLeft } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { VoiceMicButton } from '@/components/search/VoiceMicButton';
 import { Navbar } from '@/components/layout/Navbar';
+import { BottomNav } from '@/components/layout/BottomNav';
 import { useChatAssistant } from '@/hooks/useChatAssistant';
 import { getCategoryConfig } from '@/lib/constants';
 import { timeAgo } from '@/utils/formatters';
@@ -53,24 +54,37 @@ export default function AssistantPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#0A0A0F] overflow-hidden">
+    <div className="flex flex-col h-screen overflow-hidden" style={{ background: '#0F0F0F' }}>
       <Navbar />
 
       <div className="flex flex-1 overflow-hidden pt-16">
-        {/* Left panel – context */}
-        <aside className="hidden lg:flex flex-col w-72 shrink-0 bg-[#12121A] border-r border-white/10 p-5 overflow-y-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-orange-500/30 flex items-center justify-center">
-              <Sparkles size={22} className="text-blue-400" />
+        {/* Left panel — context */}
+        <aside
+          className="hidden lg:flex flex-col w-72 shrink-0 border-r border-white/8 p-5 overflow-y-auto"
+          style={{ background: 'rgba(15,15,15,0.9)' }}
+        >
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-8">
+            <div
+              className="w-12 h-12 rounded-2xl flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)', boxShadow: '0 8px 24px rgba(139,92,246,0.4)' }}
+            >
+              <Sparkles size={22} className="text-white" />
             </div>
             <div>
-              <h2 className="text-white font-bold text-sm">Exploraa Guide</h2>
-              <p className="text-white/40 text-xs">Assistant voyage IA</p>
+              <h2
+                className="text-white font-bold text-sm"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Exploraa Guide
+              </h2>
+              <p className="text-white/35 text-xs">Assistant voyage IA</p>
             </div>
           </div>
 
-          <div className="space-y-3 mb-6">
-            <h3 className="text-white/60 text-xs uppercase tracking-wider">Ce que je peux faire</h3>
+          {/* Capabilities */}
+          <div className="space-y-3 mb-8">
+            <h3 className="text-white/40 text-xs uppercase tracking-wider font-medium">Ce que je peux faire</h3>
             {[
               { emoji: '🗺️', label: 'Recommander des lieux' },
               { emoji: '🍽️', label: 'Trouver les meilleurs restos' },
@@ -79,7 +93,10 @@ export default function AssistantPage() {
               { emoji: '💡', label: 'Conseils et astuces voyage' },
               { emoji: '🌍', label: '195+ pays disponibles' },
             ].map(item => (
-              <div key={item.label} className="flex items-center gap-2.5 text-sm text-white/70">
+              <div
+                key={item.label}
+                className="flex items-center gap-2.5 text-sm text-white/60 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors"
+              >
                 <span className="text-base">{item.emoji}</span>
                 <span>{item.label}</span>
               </div>
@@ -87,38 +104,65 @@ export default function AssistantPage() {
           </div>
 
           <div className="mt-auto">
-            <Button
+            <button
               onClick={clearHistory}
-              variant="ghost"
-              className="w-full text-white/40 hover:text-white hover:bg-white/5 text-sm justify-start"
+              className="w-full flex items-center gap-2 text-white/35 hover:text-white text-sm px-3 py-2 rounded-xl hover:bg-white/5 transition-all"
             >
-              <Trash2 size={14} className="mr-2" />
+              <Trash2 size={14} />
               Effacer la conversation
-            </Button>
+            </button>
           </div>
         </aside>
 
-        {/* Chat */}
+        {/* Chat area */}
         <div className="flex flex-col flex-1 min-w-0">
-          {/* Chat header (mobile) */}
-          <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-white/10 bg-[#12121A] shrink-0">
-            <button onClick={() => navigate(-1)} className="text-white/60 hover:text-white">
+          {/* Mobile header */}
+          <div
+            className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-white/8 shrink-0"
+            style={{ background: 'rgba(15,15,15,0.95)' }}
+          >
+            <button
+              onClick={() => navigate(-1)}
+              className="text-white/50 hover:text-white p-1.5 rounded-xl hover:bg-white/8 transition-all"
+            >
               <ArrowLeft size={20} />
             </button>
-            <div className="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
-              <Compass size={16} className="text-blue-400" />
+            <div
+              className="w-8 h-8 rounded-xl flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }}
+            >
+              <Sparkles size={16} className="text-white" />
             </div>
             <div className="flex-1">
-              <span className="font-semibold text-white text-sm">Exploraa Guide</span>
-              <Badge className="ml-2 bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs px-1.5 py-0">IA</Badge>
+              <div className="flex items-center gap-2">
+                <span
+                  className="font-semibold text-white text-sm"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  Exploraa Guide
+                </span>
+                <Badge
+                  className="text-xs px-1.5 py-0 border"
+                  style={{
+                    background: 'rgba(139,92,246,0.15)',
+                    color: '#A78BFA',
+                    borderColor: 'rgba(139,92,246,0.3)',
+                  }}
+                >
+                  IA
+                </Badge>
+              </div>
             </div>
-            <button onClick={clearHistory} className="text-white/40 hover:text-white">
+            <button
+              onClick={clearHistory}
+              className="text-white/35 hover:text-white p-1.5 rounded-xl hover:bg-white/8 transition-all"
+            >
               <Trash2 size={16} />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-6 min-h-0">
+          <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-6 min-h-0 scrollbar-violet">
             {messages.map((msg, i) => (
               <motion.div
                 key={i}
@@ -128,8 +172,14 @@ export default function AssistantPage() {
                 className={cn('flex gap-3', msg.role === 'user' ? 'justify-end' : 'justify-start')}
               >
                 {msg.role === 'assistant' && (
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500/30 to-blue-600/30 flex items-center justify-center shrink-0 mt-1 border border-blue-500/20">
-                    <Compass size={16} className="text-blue-400" />
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-1 border"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15))',
+                      borderColor: 'rgba(139,92,246,0.25)',
+                    }}
+                  >
+                    <Sparkles size={16} className="text-violet-400" />
                   </div>
                 )}
 
@@ -138,9 +188,14 @@ export default function AssistantPage() {
                     className={cn(
                       'rounded-2xl px-4 py-3 text-sm leading-relaxed',
                       msg.role === 'user'
-                        ? 'bg-blue-500 text-white rounded-tr-sm'
-                        : 'bg-[#1E293B] text-white/90 rounded-tl-sm border border-white/5'
+                        ? 'text-white rounded-tr-sm'
+                        : 'text-white/90 rounded-tl-sm border border-white/8'
                     )}
+                    style={
+                      msg.role === 'user'
+                        ? { background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }
+                        : { background: 'rgba(22,33,62,0.85)' }
+                    }
                   >
                     {msg.role === 'assistant' ? (
                       <div className="prose prose-invert prose-sm max-w-none">
@@ -148,7 +203,7 @@ export default function AssistantPage() {
                           components={{
                             p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
                             strong: ({ children }) => (
-                              <strong className="text-blue-300 font-semibold">{children}</strong>
+                              <strong className="text-violet-300 font-semibold">{children}</strong>
                             ),
                             ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
                             li: ({ children }) => <li className="text-white/80">{children}</li>,
@@ -171,7 +226,8 @@ export default function AssistantPage() {
                           <button
                             key={p.id}
                             onClick={() => navigate(`/place/${p.id}`)}
-                            className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/30 rounded-full px-3 py-1.5 text-xs text-white/80 transition-all"
+                            className="flex items-center gap-1.5 border rounded-full px-3 py-1.5 text-xs text-white/80 transition-all hover:border-violet-500/40 hover:bg-violet-500/8"
+                            style={{ background: 'rgba(26,26,46,0.8)', borderColor: 'rgba(255,255,255,0.1)' }}
                           >
                             <span>{config.emoji}</span>
                             <span className="font-medium">{p.name}</span>
@@ -186,8 +242,11 @@ export default function AssistantPage() {
                 </div>
 
                 {msg.role === 'user' && (
-                  <div className="w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0 mt-1 border border-blue-500/20">
-                    <span className="text-blue-400 text-xs font-bold">Moi</span>
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-1"
+                    style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.3), rgba(236,72,153,0.3))', border: '1px solid rgba(139,92,246,0.3)' }}
+                  >
+                    <span className="text-violet-300 text-xs font-bold">Moi</span>
                   </div>
                 )}
               </motion.div>
@@ -201,13 +260,14 @@ export default function AssistantPage() {
                 transition={{ delay: 0.5 }}
                 className="py-4"
               >
-                <p className="text-white/40 text-sm text-center mb-4">Quelques idées pour commencer :</p>
+                <p className="text-white/35 text-sm text-center mb-4">Quelques idées pour commencer :</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-xl mx-auto">
                   {QUICK_SUGGESTIONS.map(s => (
                     <button
                       key={s.text}
                       onClick={() => handleSuggestion(s.text)}
-                      className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/30 rounded-xl px-4 py-3 text-sm text-white/70 hover:text-white transition-all text-left"
+                      className="flex items-center gap-3 border rounded-2xl px-4 py-3 text-sm text-white/65 hover:text-white transition-all text-left hover:border-violet-500/40 hover:bg-violet-500/6"
+                      style={{ background: 'rgba(26,26,46,0.5)', borderColor: 'rgba(255,255,255,0.08)' }}
                     >
                       <span className="text-xl shrink-0">{s.emoji}</span>
                       <span>{s.text}</span>
@@ -226,14 +286,24 @@ export default function AssistantPage() {
                   exit={{ opacity: 0 }}
                   className="flex gap-3 items-center"
                 >
-                  <div className="w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/20">
-                    <Compass size={16} className="text-blue-400" />
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center border"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15))',
+                      borderColor: 'rgba(139,92,246,0.25)',
+                    }}
+                  >
+                    <Sparkles size={16} className="text-violet-400" />
                   </div>
-                  <div className="bg-[#1E293B] border border-white/5 rounded-2xl rounded-tl-sm px-5 py-4 flex gap-1.5 items-center">
+                  <div
+                    className="border rounded-2xl rounded-tl-sm px-5 py-4 flex gap-1.5 items-center"
+                    style={{ background: 'rgba(22,33,62,0.85)', borderColor: 'rgba(255,255,255,0.08)' }}
+                  >
                     {[0, 1, 2].map(i => (
                       <motion.div
                         key={i}
-                        className="w-2 h-2 bg-blue-400 rounded-full"
+                        className="w-2 h-2 rounded-full"
+                        style={{ background: '#8B5CF6' }}
                         animate={{ y: [0, -6, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.12 }}
                       />
@@ -247,8 +317,14 @@ export default function AssistantPage() {
           </div>
 
           {/* Input bar */}
-          <div className="shrink-0 px-4 md:px-8 py-4 border-t border-white/10 bg-[#0A0A0F]">
-            <div className="max-w-3xl mx-auto flex items-center gap-3 bg-white/5 border border-white/15 hover:border-white/25 focus-within:border-blue-500/50 rounded-2xl px-4 transition-all">
+          <div
+            className="shrink-0 px-4 md:px-8 py-4 border-t border-white/8"
+            style={{ background: '#0F0F0F' }}
+          >
+            <div
+              className="max-w-3xl mx-auto flex items-center gap-3 border rounded-2xl px-4 input-gradient"
+              style={{ background: 'rgba(26,26,46,0.8)', borderColor: 'rgba(255,255,255,0.1)' }}
+            >
               <input
                 ref={inputRef}
                 value={input}
@@ -263,18 +339,21 @@ export default function AssistantPage() {
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
                 size="icon"
-                className="bg-blue-500 hover:bg-blue-600 disabled:opacity-30 text-white rounded-xl h-9 w-9 shrink-0"
+                className="text-white rounded-xl h-9 w-9 shrink-0 disabled:opacity-30"
+                style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }}
               >
-                <Send size={16} />
+                <Send size={15} />
               </Button>
             </div>
             <p className="text-center text-white/20 text-xs mt-2">
-              Propulsé par Claude · Recommandations basées sur {' '}
-              <span className="text-white/40">1M+ lieux</span>
+              Propulsé par Claude ·{' '}
+              <span className="text-white/35">1M+ lieux référencés</span>
             </p>
           </div>
         </div>
       </div>
+
+      <BottomNav />
     </div>
   );
 }

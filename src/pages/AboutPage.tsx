@@ -16,25 +16,29 @@ const VALEURS = [
     icon: Heart,
     title: 'Passion du voyage',
     description: 'Nous croyons que chaque voyage transforme. Exploraa est né pour rendre accessible les meilleurs endroits du monde à tous.',
-    color: '#EF4444',
+    gradient: 'linear-gradient(135deg, #EC4899, #F472B6)',
+    glow: 'rgba(236,72,153,0.2)',
   },
   {
     icon: Zap,
     title: 'Innovation IA',
     description: 'Notre assistant intelligent analyse des millions de données pour vous recommander des lieux parfaitement adaptés à vos envies.',
-    color: '#2196F3',
+    gradient: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
+    glow: 'rgba(139,92,246,0.2)',
   },
   {
     icon: Shield,
     title: 'Fiabilité',
     description: 'Chaque lieu est vérifié et chaque avis est modéré. Vous pouvez faire confiance à nos recommandations les yeux fermés.',
-    color: '#4CAF50',
+    gradient: 'linear-gradient(135deg, #10B981, #059669)',
+    glow: 'rgba(16,185,129,0.2)',
   },
   {
     icon: Globe,
     title: 'Sans frontières',
     description: 'Restaurants à Abidjan, hôtels à Dubai, plages à Bali — Exploraa couvre le monde entier sans exception.',
-    color: '#FF6D00',
+    gradient: 'linear-gradient(135deg, #F59E0B, #EF4444)',
+    glow: 'rgba(245,158,11,0.2)',
   },
 ];
 
@@ -44,7 +48,7 @@ const TEAM = [
     role: 'Fondateur & CEO',
     bio: 'Visionnaire et explorateur passionné, Leader a créé Exploraa pour partager sa passion des découvertes avec le monde entier.',
     avatar: '👑',
-    color: '#2196F3',
+    gradient: 'linear-gradient(135deg, #8B5CF6, #EC4899)',
   },
 ];
 
@@ -61,15 +65,22 @@ export default function AboutPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden pt-16">
+      <section className="relative min-h-[55vh] flex items-center justify-center overflow-hidden pt-16">
         <div
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 -z-10 animate-gradient"
           style={{
-            background: 'linear-gradient(135deg, #0A0A0F 0%, #0d1b2e 40%, #1a0a1e 70%, #0A0A0F 100%)',
+            background: 'linear-gradient(135deg, #0F0F0F 0%, #1a0d2e 40%, #0d1a2e 70%, #0F0F0F 100%)',
+            backgroundSize: '400% 400%',
           }}
         />
-        <div className="absolute top-1/3 left-1/3 w-80 h-80 bg-blue-500/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-orange-500/6 rounded-full blur-3xl pointer-events-none" />
+        <div
+          className="absolute top-1/4 left-1/3 w-80 h-80 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)', filter: 'blur(40px)' }}
+        />
+        <div
+          className="absolute bottom-1/4 right-1/3 w-64 h-64 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 70%)', filter: 'blur(40px)' }}
+        />
 
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center py-16">
           <motion.div
@@ -77,8 +88,11 @@ export default function AboutPage() {
             animate={{ opacity: 1, scale: 1 }}
             className="flex items-center justify-center gap-3 mb-6"
           >
-            <div className="w-16 h-16 rounded-2xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
-              <MapPin size={30} className="text-blue-400" />
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)', boxShadow: '0 12px 40px rgba(139,92,246,0.5)' }}
+            >
+              <MapPin size={30} className="text-white" />
             </div>
           </motion.div>
 
@@ -87,22 +101,20 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-bold text-white mb-4"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
-            À propos de{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              Exploraa
-            </span>
+            À propos d'
+            <span className="gradient-text">Exploraa</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-white/60 text-lg md:text-xl leading-relaxed"
+            className="text-white/50 text-lg md:text-xl leading-relaxed"
           >
             La plateforme qui connecte les explorateurs aux meilleurs endroits du monde.
-            Restaurants, hôtels, plages, culture — tout en un seul endroit.
+            <br />Découvrez le monde, connectez-vous partout.
           </motion.p>
         </div>
       </section>
@@ -117,10 +129,21 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center"
+              className="border rounded-2xl p-5 text-center"
+              style={{ background: 'rgba(22,33,62,0.7)', borderColor: 'rgba(139,92,246,0.15)' }}
             >
-              <stat.icon size={22} className="text-blue-400 mx-auto mb-2" />
-              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3"
+                style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15))' }}
+              >
+                <stat.icon size={18} className="text-violet-400" />
+              </div>
+              <div
+                className="text-3xl font-bold text-white mb-1"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                {stat.value}
+              </div>
               <div className="text-white/40 text-sm">{stat.label}</div>
             </motion.div>
           ))}
@@ -133,16 +156,25 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-br from-blue-500/10 to-orange-500/5 border border-blue-500/20 rounded-3xl p-8 md:p-12 text-center"
+          className="border rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.05))',
+            borderColor: 'rgba(139,92,246,0.2)',
+          }}
         >
-          <Sparkles size={32} className="text-blue-400 mx-auto mb-4" />
+          <div
+            className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
+            style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }}
+          >
+            <Sparkles size={26} className="text-white" />
+          </div>
           <h2
             className="text-2xl md:text-3xl font-bold text-white mb-4"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Notre Mission
           </h2>
-          <p className="text-white/70 text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-white/60 text-lg leading-relaxed max-w-2xl mx-auto">
             Rendre la découverte du monde accessible à tous. Que vous soyez à Abidjan, Paris, Dubai
             ou New York, Exploraa vous guide vers les expériences les plus authentiques et les plus
             mémorables — grâce à l'intelligence artificielle et à une communauté de passionnés.
@@ -160,11 +192,11 @@ export default function AboutPage() {
         >
           <h2
             className="text-2xl md:text-3xl font-bold text-white mb-2"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Nos valeurs
           </h2>
-          <p className="text-white/50">Ce qui guide chaque décision que nous prenons.</p>
+          <p className="text-white/40">Ce qui guide chaque décision que nous prenons.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -175,16 +207,22 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-colors"
+              className="border rounded-2xl p-6 hover:border-violet-500/25 transition-all"
+              style={{ background: 'rgba(22,33,62,0.6)', borderColor: 'rgba(255,255,255,0.08)' }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: `${v.color}20`, border: `1px solid ${v.color}30` }}
+                style={{ background: v.gradient, boxShadow: `0 8px 24px ${v.glow}` }}
               >
-                <v.icon size={22} style={{ color: v.color }} />
+                <v.icon size={22} className="text-white" />
               </div>
-              <h3 className="text-white font-bold text-lg mb-2">{v.title}</h3>
-              <p className="text-white/60 text-sm leading-relaxed">{v.description}</p>
+              <h3
+                className="text-white font-bold text-lg mb-2"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                {v.title}
+              </h3>
+              <p className="text-white/55 text-sm leading-relaxed">{v.description}</p>
             </motion.div>
           ))}
         </div>
@@ -199,15 +237,15 @@ export default function AboutPage() {
           className="text-center mb-10"
         >
           <h2
-            className="text-2xl md:text-3xl font-bold text-white mb-2"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            className="text-2xl md:text-3xl font-bold text-white"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Notre histoire
           </h2>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-white/10" />
+          <div className="absolute left-8 top-0 bottom-0 w-px" style={{ background: 'linear-gradient(to bottom, #8B5CF6, #EC4899)' }} />
           <div className="space-y-8">
             {TIMELINE.map((item, i) => (
               <motion.div
@@ -219,14 +257,29 @@ export default function AboutPage() {
                 className="flex gap-6 items-start pl-4"
               >
                 <div className="relative shrink-0">
-                  <div className="w-9 h-9 rounded-full bg-blue-500/20 border-2 border-blue-500/40 flex items-center justify-center z-10 relative">
-                    <span className="text-blue-400 text-xs font-bold">{item.year.slice(2)}</span>
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center z-10 relative"
+                    style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)', boxShadow: '0 4px 16px rgba(139,92,246,0.4)' }}
+                  >
+                    <span className="text-white text-xs font-bold">{item.year.slice(2)}</span>
                   </div>
                 </div>
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex-1">
-                  <div className="text-blue-400 text-xs font-medium mb-1">{item.year}</div>
-                  <h3 className="text-white font-semibold mb-1">{item.title}</h3>
-                  <p className="text-white/50 text-sm">{item.desc}</p>
+                <div
+                  className="border rounded-2xl p-4 flex-1"
+                  style={{ background: 'rgba(22,33,62,0.6)', borderColor: 'rgba(139,92,246,0.12)' }}
+                >
+                  <div
+                    className="text-xs font-semibold mb-1 gradient-text"
+                  >
+                    {item.year}
+                  </div>
+                  <h3
+                    className="text-white font-semibold mb-1"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="text-white/45 text-sm">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -244,11 +297,11 @@ export default function AboutPage() {
         >
           <h2
             className="text-2xl md:text-3xl font-bold text-white mb-2"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             L'équipe
           </h2>
-          <p className="text-white/50">Les personnes derrière Exploraa.</p>
+          <p className="text-white/40">Les personnes derrière Exploraa.</p>
         </motion.div>
 
         <div className="flex justify-center">
@@ -259,17 +312,23 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center max-w-sm w-full hover:border-white/20 transition-colors"
+              className="border rounded-2xl p-8 text-center max-w-sm w-full hover:border-violet-500/30 transition-all"
+              style={{ background: 'rgba(22,33,62,0.6)', borderColor: 'rgba(139,92,246,0.12)' }}
             >
               <div
-                className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-4 border"
-                style={{ background: `${member.color}15`, borderColor: `${member.color}30` }}
+                className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-4"
+                style={{ background: member.gradient, boxShadow: '0 8px 32px rgba(139,92,246,0.4)' }}
               >
                 {member.avatar}
               </div>
-              <h3 className="text-white font-bold text-xl mb-1">{member.name}</h3>
-              <p className="text-blue-400 text-sm font-medium mb-3">{member.role}</p>
-              <p className="text-white/60 text-sm leading-relaxed">{member.bio}</p>
+              <h3
+                className="text-white font-bold text-xl mb-1"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                {member.name}
+              </h3>
+              <p className="gradient-text text-sm font-semibold mb-3">{member.role}</p>
+              <p className="text-white/55 text-sm leading-relaxed">{member.bio}</p>
             </motion.div>
           ))}
         </div>
@@ -281,27 +340,29 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 text-center"
+          className="border rounded-3xl p-8 md:p-12 text-center"
+          style={{ background: 'rgba(22,33,62,0.5)', borderColor: 'rgba(139,92,246,0.15)' }}
         >
           <h2
             className="text-2xl md:text-3xl font-bold text-white mb-3"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Nous contacter
           </h2>
-          <p className="text-white/50 mb-8 max-w-md mx-auto">
+          <p className="text-white/45 mb-8 max-w-md mx-auto">
             Une question, une suggestion, un partenariat ? Notre équipe est là pour vous.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Button
-              className="bg-blue-500 hover:bg-blue-600 text-white rounded-full px-8 gap-2"
+              className="text-white rounded-2xl px-8 gap-2 font-semibold"
+              style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }}
             >
               <Mail size={16} /> Envoyer un email
             </Button>
             <Button
               onClick={() => navigate('/assistant')}
               variant="outline"
-              className="border-white/20 text-white hover:bg-white/10 rounded-full px-8 gap-2"
+              className="border-white/15 text-white hover:bg-white/8 rounded-2xl px-8 gap-2"
             >
               <MessageCircle size={16} /> Parler à l'IA
             </Button>
@@ -317,29 +378,33 @@ export default function AboutPage() {
         className="max-w-4xl mx-auto px-4 pb-16"
       >
         <div
-          className="rounded-3xl overflow-hidden p-10 text-center relative border border-blue-500/20"
-          style={{ background: 'linear-gradient(135deg, #1E3A8A20, #2196F330)' }}
+          className="rounded-3xl overflow-hidden p-10 text-center relative border"
+          style={{
+            background: 'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(236,72,153,0.08))',
+            borderColor: 'rgba(139,92,246,0.2)',
+          }}
         >
           <h2
             className="text-2xl md:text-4xl font-bold text-white mb-3"
-            style={{ fontFamily: '"Playfair Display", serif' }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Prêt à explorer avec nous ?
           </h2>
-          <p className="text-white/60 mb-6">
+          <p className="text-white/50 mb-6">
             Rejoignez 250 000 explorateurs qui découvrent le monde avec Exploraa.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Button
               onClick={() => navigate('/explore')}
-              className="bg-blue-500 hover:bg-blue-600 text-white rounded-full px-10 py-3 text-base"
+              className="text-white rounded-2xl px-10 py-3 text-base font-semibold"
+              style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }}
             >
               Explorer maintenant
             </Button>
             <Button
               onClick={() => navigate('/signup')}
               variant="outline"
-              className="border-white/20 text-white hover:bg-white/10 rounded-full px-10 py-3 text-base"
+              className="border-white/15 text-white hover:bg-white/8 rounded-2xl px-10 py-3 text-base"
             >
               Créer un compte gratuit
             </Button>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Space+Grotesk:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "leaflet/dist/leaflet.css";
@@ -40,38 +40,38 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Exploraa dark theme — always dark */
+/* Exploraa dark theme — violet/rose */
 :root {
-  --background: #0A0A0F;
+  --background: #0F0F0F;
   --foreground: #FFFFFF;
-  --card: #12121A;
+  --card: #16213E;
   --card-foreground: #FFFFFF;
-  --popover: #1E1E2E;
+  --popover: #1A1A2E;
   --popover-foreground: #FFFFFF;
-  --primary: #2196F3;
+  --primary: #8B5CF6;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E1E2E;
+  --secondary: #1A1A2E;
   --secondary-foreground: #FFFFFF;
-  --muted: #1E1E2E;
+  --muted: #1A1A2E;
   --muted-foreground: #94A3B8;
-  --accent: #FF6D00;
+  --accent: #EC4899;
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255,255,255,0.1);
-  --input: #1E1E2E;
-  --ring: #2196F3;
-  --radius: 0.75rem;
-  --sidebar: #12121A;
+  --border: rgba(255,255,255,0.08);
+  --input: #1A1A2E;
+  --ring: #8B5CF6;
+  --radius: 1rem;
+  --sidebar: #0F0F0F;
   --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #2196F3;
+  --sidebar-primary: #8B5CF6;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1E1E2E;
+  --sidebar-accent: #1A1A2E;
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: rgba(255,255,255,0.1);
-  --sidebar-ring: #2196F3;
-  --chart-1: #2196F3;
-  --chart-2: #FF6D00;
+  --sidebar-border: rgba(255,255,255,0.08);
+  --sidebar-ring: #8B5CF6;
+  --chart-1: #8B5CF6;
+  --chart-2: #EC4899;
   --chart-3: #22C55E;
   --chart-4: #F59E0B;
   --chart-5: #EF4444;
@@ -84,17 +84,81 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
   }
   #root {
     min-height: 100vh;
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  }
 }
 
-/* Scrollbar hide utility */
+/* ===== GRADIENT UTILITIES ===== */
+.gradient-violet-rose {
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+  background: rgba(26, 26, 46, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-dark {
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.glass-card {
+  background: rgba(22, 33, 62, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+/* ===== VIOLET GLOW ===== */
+.glow-violet {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+.glow-rose {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+}
+.shadow-violet {
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+}
+.shadow-violet-lg {
+  box-shadow: 0 25px 60px rgba(139, 92, 246, 0.3);
+}
+
+/* ===== SCROLLBAR ===== */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -102,16 +166,81 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+.scrollbar-violet::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-violet::-webkit-scrollbar-track {
+  background: #1A1A2E;
+}
+.scrollbar-violet::-webkit-scrollbar-thumb {
+  background: #8B5CF6;
+  border-radius: 2px;
+}
 
-/* Leaflet dark overrides */
+/* ===== STORY RING ===== */
+.story-ring {
+  background: linear-gradient(135deg, #8B5CF6, #EC4899, #F472B6);
+  padding: 2px;
+  border-radius: 50%;
+}
+.story-ring-inner {
+  background: #0F0F0F;
+  padding: 2px;
+  border-radius: 50%;
+}
+
+/* ===== BOTTOM NAV SAFE AREA ===== */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.mb-bottom-nav {
+  margin-bottom: 64px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.4); }
+  50% { transform: scale(0.9); }
+  75% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.animate-heart-pop {
+  animation: heart-pop 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* ===== INPUT FOCUS GRADIENT BORDER ===== */
+.input-gradient:focus-within {
+  box-shadow: 0 0 0 1px #8B5CF6, 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* ===== LEAFLET DARK OVERRIDES ===== */
 .leaflet-container {
-  background: #12121A;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background: #16213E;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 .leaflet-popup-content-wrapper {
-  background: #1E1E2E;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
+  background: #1A1A2E;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.6);
   padding: 0;
   overflow: hidden;
@@ -134,7 +263,7 @@
   color: #fff !important;
 }
 .leaflet-control-attribution {
-  background: rgba(18,18,26,0.8) !important;
+  background: rgba(15,15,15,0.8) !important;
   color: rgba(255,255,255,0.3) !important;
   font-size: 10px;
 }
@@ -142,21 +271,21 @@
   color: rgba(255,255,255,0.4) !important;
 }
 .leaflet-control-zoom {
-  border: 1px solid rgba(255,255,255,0.1) !important;
-  border-radius: 8px !important;
+  border: 1px solid rgba(139,92,246,0.2) !important;
+  border-radius: 12px !important;
   overflow: hidden;
 }
 .leaflet-control-zoom a {
-  background: #1E1E2E !important;
+  background: #1A1A2E !important;
   color: rgba(255,255,255,0.6) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
 }
 .leaflet-control-zoom a:hover {
-  background: #2D2D3E !important;
-  color: #fff !important;
+  background: #8B5CF620 !important;
+  color: #8B5CF6 !important;
 }
 
-/* Pulsing user location animation */
+/* ===== USER LOCATION PING ===== */
 @keyframes ll-ping {
   0% { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(2.5); opacity: 0; }

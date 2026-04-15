@@ -10,6 +10,7 @@ import { Slider } from '@/components/ui/slider';
 import { VoiceMicButton } from '@/components/search/VoiceMicButton';
 import { PlaceCard } from '@/components/places/PlaceCard';
 import { Navbar } from '@/components/layout/Navbar';
+import { BottomNav } from '@/components/layout/BottomNav';
 import { ChatAssistant } from '@/components/chat/ChatAssistant';
 import { EmptyState } from '@/components/ui/EmptyState';
 import { ReviewStars } from '@/components/reviews/ReviewStars';
@@ -21,7 +22,6 @@ import { formatPrice } from '@/utils/currencyConverter';
 import { parseVoiceIntent } from '@/utils/voiceIntentParser';
 import type { Place, PlaceCategory, VoiceIntent } from '@/types';
 
-// CartoDB Dark Matter tile layer
 const DARK_TILE_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
 const DARK_TILE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
@@ -32,9 +32,9 @@ function createPlaceIcon(emoji: string, color: string, selected: boolean) {
       width:36px;height:36px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
       font-size:16px;cursor:pointer;
-      background:${selected ? color : color + 'CC'};
-      border:2px solid ${color};
-      box-shadow:0 2px 10px rgba(0,0,0,0.6);
+      background:${selected ? '#8B5CF6' : color + 'CC'};
+      border:2px solid ${selected ? '#EC4899' : color};
+      box-shadow:${selected ? '0 4px 20px rgba(139,92,246,0.6)' : '0 2px 10px rgba(0,0,0,0.6)'};
       transition:transform 0.15s;
     ">${emoji}</div>`,
     iconSize: [36, 36],
@@ -46,14 +46,13 @@ function createPlaceIcon(emoji: string, color: string, selected: boolean) {
 const userLocationIcon = L.divIcon({
   className: '',
   html: `<div style="position:relative;width:20px;height:20px;display:flex;align-items:center;justify-content:center;">
-    <div class="ll-user-ping" style="position:absolute;inset:0;background:#3B82F630;border-radius:50%;"></div>
-    <div style="width:14px;height:14px;background:#3B82F6;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.5);position:relative;z-index:1;"></div>
+    <div class="ll-user-ping" style="position:absolute;inset:0;background:rgba(139,92,246,0.25);border-radius:50%;"></div>
+    <div style="width:14px;height:14px;background:#8B5CF6;border-radius:50%;border:2px solid white;box-shadow:0 2px 6px rgba(139,92,246,0.5);position:relative;z-index:1;"></div>
   </div>`,
   iconSize: [20, 20],
   iconAnchor: [10, 10],
 });
 
-// Re-centers map when center prop changes
 function MapController({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
   const prevCenter = useRef<[number, number]>(center);
@@ -130,50 +129,60 @@ export default function ExplorePage() {
     : [latitude ?? 5.354, longitude ?? -4.008];
 
   return (
-    <div className="h-screen bg-[#0A0A0F] flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden" style={{ background: '#0F0F0F' }}>
       <Navbar />
       <ChatAssistant />
 
-      <div className="flex flex-1 overflow-hidden pt-16">
+      <div className="flex flex-1 overflow-hidden pt-16 pb-16 md:pb-0">
         {/* Sidebar */}
         <div className={`
-          flex flex-col bg-[#12121A] border-r border-white/10 overflow-hidden
+          flex flex-col border-r border-white/8 overflow-hidden
           ${showMap ? 'hidden md:flex w-[380px] shrink-0' : 'flex flex-1'}
-        `}>
+        `}
+          style={{ background: 'rgba(15,15,20,0.97)' }}
+        >
           {/* Search */}
-          <div className="p-4 border-b border-white/10">
-            <form onSubmit={handleSearch} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3">
-              <Search size={16} className="text-white/40 shrink-0" />
+          <div className="p-4 border-b border-white/8">
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center gap-2 border rounded-2xl px-3 mb-3 input-gradient"
+              style={{ background: 'rgba(26,26,46,0.8)', borderColor: 'rgba(255,255,255,0.1)' }}
+            >
+              <Search size={15} className="text-white/35 shrink-0" />
               <input
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder="Rechercher..."
-                className="flex-1 bg-transparent py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                className="flex-1 bg-transparent py-2.5 text-sm text-white placeholder:text-white/35 focus:outline-none"
               />
               <VoiceMicButton onTranscript={handleVoice} size="sm" />
               {query && (
-                <button onClick={() => setQuery('')} className="text-white/40 hover:text-white">
+                <button onClick={() => setQuery('')} className="text-white/35 hover:text-white transition-colors">
                   <X size={14} />
                 </button>
               )}
             </form>
 
             {/* Category chips */}
-            <div className="flex flex-wrap gap-1.5 mt-3">
+            <div className="flex flex-wrap gap-1.5">
               {CATEGORIES.map(cat => (
                 <button
                   key={cat.key}
                   onClick={() => toggleCategory(cat.key)}
-                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs transition-all ${
+                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-xs transition-all border ${
                     selectedCategories.includes(cat.key)
-                      ? 'text-white border'
-                      : 'bg-white/5 text-white/60 hover:bg-white/10 border border-white/10'
+                      ? 'text-white'
+                      : 'text-white/50 hover:text-white border-white/8 hover:border-white/20'
                   }`}
-                  style={selectedCategories.includes(cat.key) ? {
-                    background: `${cat.markerColor}20`,
-                    borderColor: `${cat.markerColor}60`,
-                    color: cat.markerColor,
-                  } : {}}
+                  style={
+                    selectedCategories.includes(cat.key)
+                      ? {
+                          background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15))',
+                          borderColor: 'rgba(139,92,246,0.4)',
+                          color: '#A78BFA',
+                        }
+                      : { background: 'rgba(26,26,46,0.6)' }
+                  }
                 >
                   {cat.emoji} {cat.label}
                 </button>
@@ -183,11 +192,14 @@ export default function ExplorePage() {
             {/* Filters toggle */}
             <button
               onClick={() => setShowFilters(prev => !prev)}
-              className="flex items-center gap-2 text-white/50 hover:text-white text-xs mt-3"
+              className="flex items-center gap-2 text-white/40 hover:text-violet-400 text-xs mt-3 transition-colors"
             >
               <SlidersHorizontal size={12} />
               Filtres avancés
-              <ChevronDown size={12} className={showFilters ? 'rotate-180' : ''} />
+              <ChevronDown
+                size={12}
+                className={`transition-transform ${showFilters ? 'rotate-180' : ''}`}
+              />
             </button>
 
             <AnimatePresence>
@@ -200,7 +212,7 @@ export default function ExplorePage() {
                 >
                   <div className="pt-3 space-y-4">
                     <div>
-                      <label className="text-white/60 text-xs mb-2 block">
+                      <label className="text-white/50 text-xs mb-2 block">
                         Prix maximum : {PRICE_LABELS[maxPrice]}
                       </label>
                       <Slider
@@ -210,9 +222,8 @@ export default function ExplorePage() {
                         className="w-full"
                       />
                     </div>
-
                     <div>
-                      <label className="text-white/60 text-xs mb-2 block">
+                      <label className="text-white/50 text-xs mb-2 block">
                         Note minimum : {minRating > 0 ? `${minRating}/5` : 'Toutes'}
                       </label>
                       <Slider
@@ -222,13 +233,13 @@ export default function ExplorePage() {
                         className="w-full"
                       />
                     </div>
-
                     <div>
-                      <label className="text-white/60 text-xs mb-2 block">Trier par</label>
+                      <label className="text-white/50 text-xs mb-2 block">Trier par</label>
                       <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value as typeof sortBy)}
-                        className="w-full bg-white/5 border border-white/10 text-white text-sm rounded-lg px-3 py-2 focus:outline-none"
+                        className="w-full border rounded-xl px-3 py-2 text-white text-sm focus:outline-none"
+                        style={{ background: 'rgba(26,26,46,0.8)', borderColor: 'rgba(255,255,255,0.1)' }}
                       >
                         <option value="relevance">Pertinence</option>
                         <option value="rating">Mieux notés</option>
@@ -242,31 +253,36 @@ export default function ExplorePage() {
             </AnimatePresence>
           </div>
 
-          {/* Results */}
-          <div className="flex items-center justify-between px-4 py-2 shrink-0">
-            <span className="text-white/50 text-xs">
+          {/* Results header */}
+          <div className="flex items-center justify-between px-4 py-2.5 shrink-0 border-b border-white/5">
+            <span className="text-white/40 text-xs">
               {isLoading ? 'Chargement...' : `${filteredPlaces.length} lieu${filteredPlaces.length > 1 ? 'x' : ''} trouvé${filteredPlaces.length > 1 ? 's' : ''}`}
             </span>
             <Button
               variant="ghost"
               size="sm"
-              className="md:hidden text-white/50 hover:text-white text-xs"
+              className="md:hidden text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 text-xs rounded-xl"
               onClick={() => setShowMap(true)}
             >
               <MapIcon size={12} className="mr-1" /> Carte
             </Button>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-3">
+          {/* Results list */}
+          <div className="flex-1 overflow-y-auto px-4 pb-4 pt-2 space-y-3 scrollbar-violet">
             {isLoading ? (
               Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-36 bg-white/5 rounded-2xl animate-pulse" />
+                <div
+                  key={i}
+                  className="h-36 rounded-2xl animate-pulse"
+                  style={{ background: 'rgba(139,92,246,0.06)' }}
+                />
               ))
             ) : filteredPlaces.length === 0 ? (
               <EmptyState
                 icon={Search}
                 title="Aucun lieu trouvé"
-                description="Aucun lieu trouvé dans cette zone. Essayez d'autres filtres."
+                description="Essayez d'autres filtres."
                 actionLabel="Réinitialiser"
                 onAction={() => { setQuery(''); setSelectedCategories([]); setMaxPrice(4); setMinRating(0); }}
               />
@@ -275,7 +291,7 @@ export default function ExplorePage() {
                 <div
                   key={place.id}
                   onClick={() => setSelectedPlace(place)}
-                  className={`cursor-pointer transition-all rounded-2xl ${selectedPlace?.id === place.id ? 'ring-2 ring-blue-500' : ''}`}
+                  className={`cursor-pointer transition-all rounded-2xl ${selectedPlace?.id === place.id ? 'ring-2 ring-violet-500/60' : ''}`}
                 >
                   <PlaceCard
                     place={place}
@@ -290,11 +306,12 @@ export default function ExplorePage() {
 
         {/* Map */}
         <div className={`flex-1 relative ${showMap ? 'flex' : 'hidden md:flex'}`}>
-          {/* Mobile map/list toggle */}
+          {/* Mobile: back to list */}
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] md:hidden">
             <button
               onClick={() => setShowMap(false)}
-              className="bg-[#12121A]/90 backdrop-blur-xl border border-white/20 text-white text-sm px-4 py-2 rounded-full"
+              className="border text-white text-sm px-4 py-2 rounded-full backdrop-blur-xl"
+              style={{ background: 'rgba(15,15,15,0.9)', borderColor: 'rgba(139,92,246,0.3)' }}
             >
               ← Liste des lieux
             </button>
@@ -304,24 +321,15 @@ export default function ExplorePage() {
             center={mapCenter}
             zoom={12}
             style={{ width: '100%', height: '100%' }}
-            zoomControl={true}
+            zoomControl
           >
             <MapController center={mapCenter} zoom={12} />
-            <TileLayer
-              url={DARK_TILE_URL}
-              attribution={DARK_TILE_ATTRIBUTION}
-              maxZoom={19}
-            />
+            <TileLayer url={DARK_TILE_URL} attribution={DARK_TILE_ATTRIBUTION} maxZoom={19} />
 
-            {/* User location */}
             {latitude && longitude && (
-              <Marker
-                position={[latitude, longitude]}
-                icon={userLocationIcon}
-              />
+              <Marker position={[latitude, longitude]} icon={userLocationIcon} />
             )}
 
-            {/* Place markers */}
             {filteredPlaces.map(place => {
               const config = getCategoryConfig(place.category);
               const isSelected = selectedPlace?.id === place.id;
@@ -330,39 +338,28 @@ export default function ExplorePage() {
                   key={place.id}
                   position={[place.latitude, place.longitude]}
                   icon={createPlaceIcon(config.emoji, config.markerColor, isSelected)}
-                  eventHandlers={{
-                    click: () => setSelectedPlace(place),
-                  }}
+                  eventHandlers={{ click: () => setSelectedPlace(place) }}
                 >
                   <Popup>
-                    <div
-                      className="w-52 cursor-pointer"
-                      onClick={() => navigate(`/place/${place.id}`)}
-                    >
-                      <img
-                        src={place.cover_image_url}
-                        alt={place.name}
-                        className="w-full h-28 object-cover"
-                      />
-                      <div className="p-2">
+                    <div className="w-52 cursor-pointer" onClick={() => navigate(`/place/${place.id}`)}>
+                      <img src={place.cover_image_url} alt={place.name} className="w-full h-28 object-cover" />
+                      <div className="p-2.5" style={{ background: '#1A1A2E' }}>
                         <CategoryBadge category={place.category} size="sm" />
                         <p className="text-white font-semibold text-sm mt-1 truncate">{place.name}</p>
                         <div className="flex items-center justify-between mt-1">
                           <ReviewStars rating={place.rating} size="sm" showScore />
-                          <span className="text-white/50 text-xs">{PRICE_LABELS[place.price_level]}</span>
+                          <span className="text-white/45 text-xs">{PRICE_LABELS[place.price_level]}</span>
                         </div>
                         {place.price_min && (
-                          <p className="text-white/50 text-xs mt-1">
-                            {formatPrice(place.price_min, place.currency)}
-                          </p>
+                          <p className="text-white/40 text-xs mt-1">{formatPrice(place.price_min, place.currency)}</p>
                         )}
-                        <Button
-                          size="sm"
-                          className="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg h-7 text-xs"
+                        <button
+                          className="w-full mt-2.5 h-7 rounded-xl text-white text-xs font-semibold"
+                          style={{ background: 'linear-gradient(135deg, #8B5CF6, #EC4899)' }}
                           onClick={() => navigate(`/place/${place.id}`)}
                         >
                           Voir
-                        </Button>
+                        </button>
                       </div>
                     </div>
                   </Popup>
@@ -379,8 +376,11 @@ export default function ExplorePage() {
                 return (
                   <Badge
                     key={cat}
-                    className="text-white rounded-full cursor-pointer"
-                    style={{ background: config.markerColor + '40', borderColor: config.markerColor + '60' }}
+                    className="text-white rounded-full cursor-pointer border"
+                    style={{
+                      background: 'rgba(139,92,246,0.2)',
+                      borderColor: 'rgba(139,92,246,0.4)',
+                    }}
                     onClick={() => toggleCategory(cat)}
                   >
                     {config.emoji} {config.label} <X size={10} className="ml-1" />
@@ -391,6 +391,8 @@ export default function ExplorePage() {
           )}
         </div>
       </div>
+
+      <BottomNav />
     </div>
   );
 }

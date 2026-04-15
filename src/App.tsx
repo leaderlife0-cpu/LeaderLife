@@ -28,10 +28,13 @@ const queryClient = new QueryClient({
 
 function PageLoader() {
   return (
-    <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center" style={{ background: '#0F0F0F' }}>
       <div className="flex flex-col items-center gap-3">
-        <div className="w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-white/40 text-sm">Chargement...</p>
+        <div
+          className="w-10 h-10 rounded-full animate-spin border-2 border-t-transparent"
+          style={{ borderColor: '#8B5CF6', borderTopColor: 'transparent' }}
+        />
+        <p className="text-white/35 text-sm">Chargement...</p>
       </div>
     </div>
   );
